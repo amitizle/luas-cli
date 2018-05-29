@@ -8,7 +8,7 @@ builds:
     env:
     - CGO_ENABLED=0
 archive:
-  format: binary
+  format: 'tar.gz'
   replacements:
     darwin: Darwin
     linux: Linux
