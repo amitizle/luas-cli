@@ -1,5 +1,10 @@
 language: go
 
+go:
+  - "1.10"
+
+install:
+
 # calls goreleaser
 deploy:
 - provider: script
