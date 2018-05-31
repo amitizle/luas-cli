@@ -1,8 +1,9 @@
 package cmd
 
 import (
+	"encoding/json"
 	"github.com/amitizle/go-luas"
-	"github.com/amitizle/go-luas-cli/internal/output"
+	"github.com/amitizle/luas-cli/internal/output"
 	"github.com/spf13/cobra"
 	"os"
 )
@@ -31,15 +32,30 @@ func forecast(cmd *cobra.Command, args []string) {
 		output.Errorf("error getting forecast for stop %s, %v", stop.Name, err)
 		os.Exit(1)
 	}
-	output.Infof("Forecast for stop %s from %s\n\n%s\n",
-		stop.Name,
-		stopInfo.Created,
-		stopInfo.Message)
-	for _, direction := range stopInfo.Directions {
-		output.Infof("Direction: %s", direction.Name)
-		for _, tram := range direction.Trams {
-			output.Infof("Destination: %s, due in %s minutes", tram.Destination, tram.DueMins)
+	printOutput(cmd.Flag("format").Value.String(), stop, stopInfo)
+}
+
+func printOutput(format string, stop *luas.Stop, stopInfo *luas.StopInfo) {
+	switch format {
+	case "table":
+		output.Infof("Forecast for stop %s from %s\n\n%s\n",
+			stop.Name,
+			stopInfo.Created,
+			stopInfo.Message)
+		for _, direction := range stopInfo.Directions {
+			output.Infof("Direction: %s", direction.Name)
+			for _, tram := range direction.Trams {
+				output.Infof("Destination: %s, due in %s minutes", tram.Destination, tram.DueMins)
+			}
+			output.Infof("")
 		}
-		output.Infof("")
+	case "json":
+		jsonOutput, err := json.Marshal(stopInfo)
+		if err != nil {
+			output.Errorf("while generating json output: %v", err)
+			os.Exit(1)
+		}
+		output.NoFormat(string(jsonOutput))
+	default:
 	}
 }

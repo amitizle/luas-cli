@@ -1,6 +1,6 @@
 package main
 
-import "github.com/amitizle/go-luas-cli/cmd"
+import "github.com/amitizle/luas-cli/cmd"
 
 func main() {
 	cmd.Execute()

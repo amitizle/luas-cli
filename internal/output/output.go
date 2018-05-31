@@ -28,3 +28,11 @@ func Warn(line string) {
 func Warnf(line string, args ...interface{}) {
 	Warn(fmt.Sprintf(line, args...))
 }
+
+func NoFormat(line string) {
+	fmt.Println(line)
+}
+
+func NoFormatf(line string, args ...interface{}) {
+	NoFormat(fmt.Sprintf(line, args...))
+}
