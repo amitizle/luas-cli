@@ -8,7 +8,9 @@ builds:
     env:
     - CGO_ENABLED=0
 archive:
+  name_template: "luas_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
   format: 'tar.gz'
+  files: []
   replacements:
     darwin: Darwin
     linux: Linux
