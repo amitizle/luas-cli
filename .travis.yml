@@ -1,13 +1,11 @@
 language: go
-
 go:
   - "1.10"
-
-# calls goreleaser
 deploy:
-- provider: script
-  skip_cleanup: true
-  script: curl -sL https://git.io/goreleaser | bash
-  on:
-    tags: true
-    condition: $TRAVIS_OS_NAME = linux
+  - provider: script
+    skip_cleanup: true
+    github_token: "$GITHUB_TOKEN"
+    script: curl -sL https://git.io/goreleaser | bash
+    on:
+      tags: true
+      condition: "$TRAVIS_OS_NAME = linux"
