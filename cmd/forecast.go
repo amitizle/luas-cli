@@ -48,7 +48,7 @@ func printOutput(format string, stop *luas.Stop, stopInfo *luas.StopInfo) {
 				if tram.Destination == "No trams forecast" {
 					output.Warnf("No trams")
 				} else if tram.DueMins == "DUE" {
-					output.Infof("Destination: %s, due to arrive", tram.Destination, tram.DueMins)
+					output.Infof("Destination: %s, due to arrive", tram.Destination)
 				} else {
 					output.Infof("Destination: %s, due in %s minutes", tram.Destination, tram.DueMins)
 				}
